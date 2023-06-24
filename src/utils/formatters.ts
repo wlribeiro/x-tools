@@ -1,15 +1,19 @@
-export const convertToLowerCase = (text) => {
-  return text.toLowerCase()
-}
+export const lowercase = (text: string) => text.toLowerCase()
 
-export const convertToUpperCase = (text) => {
-  return text.toUpperCase()
-}
+export const uppercase = (text: string) => text.toUpperCase()
 
-export const convertToTitleCase = (text) => {
-  return text.toLowerCase().replace(/^(.)|\s(.)/g, (char) => char.toUpperCase())
-}
+export const titlecase = (text: string) =>
+  text.toLowerCase().replace(/^(.)|\s(.)/g, (char) => char.toUpperCase())
 
-export const convertToSentenceCase = (text) => {
-  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
-}
+export const sentencecase = (text: string) =>
+  text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+
+export const doubleQuotions = (text: string) => (`"${text}"`)
+
+export const singleQuotions = (text: string) => (`'${text}'`)
+
+export const parentheses = (text: string) => (`(${text})`)
+
+export const brackets = (text: string) => (`[${text}]`)
+
+export const curlyBrackets = (text: string) => (`{${text}}`)

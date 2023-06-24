@@ -1,44 +1,4 @@
-import { CONTEXT_MENU_ITEMS } from "~/constants"
-import {
-  convertToLowerCase,
-  convertToSentenceCase,
-  convertToTitleCase,
-  convertToUpperCase
-} from "~/utils/formatters"
-
-CONTEXT_MENU_ITEMS.forEach((item) => {
-  chrome.contextMenus.create({
-    ...item,
-    contexts: ["page", "selection"]
-  })
-})
-
-chrome.contextMenus.onClicked.addListener(async function (info, tab) {
-  let result = ""
-
-  switch (info.menuItemId) {
-    case "lowercase":
-      result = convertToLowerCase(info.selectionText)
-      break
-
-    case "uppercase":
-      result = convertToUpperCase(info.selectionText)
-      break
-
-    case "titlecase":
-      result = convertToTitleCase(info.selectionText)
-      break
-
-    case "sentencecase":
-      result = convertToSentenceCase(info.selectionText)
-      break
-
-    default:
-      break
-  }
-
-  await copyLink(result, tab)
-})
+import { CONTEXT_MENU_FORMATTER_ITEMS, CONTEXT_MENU_SYMBOL_ITEMS } from "./menu/"
 
 function contentCopy(text) {
   navigator.clipboard.writeText(text)
@@ -51,3 +11,49 @@ async function copyLink(text, tab) {
     args: [text]
   })
 }
+
+const generateContextMenuWithArray = (options) => {
+  Object.keys(options).map((key) => {
+    generateContextMenu({ id: key, title: options[key].title })
+  })
+}
+
+const generateContextMenu = (options) => {
+  chrome.contextMenus.create({
+    ...options,
+    contexts: ["page", "selection"]
+  })
+}
+
+;[CONTEXT_MENU_FORMATTER_ITEMS, CONTEXT_MENU_SYMBOL_ITEMS].forEach(
+  (options, id) => {
+    generateContextMenuWithArray(options)
+    generateContextMenu({
+      id: `separator-${id}`,
+      title: "separator",
+      type: "separator"
+    })
+  }
+)
+
+chrome.contextMenus.onClicked.addListener(async function (info, tab) {
+  if (
+    Object.keys(CONTEXT_MENU_FORMATTER_ITEMS).includes(
+      info.menuItemId as string
+    )
+  ) {
+    await copyLink(
+      CONTEXT_MENU_FORMATTER_ITEMS[info.menuItemId].function(
+        info.selectionText
+      ),
+      tab
+    )
+  } else if (
+    Object.keys(CONTEXT_MENU_SYMBOL_ITEMS).includes(info.menuItemId as string)
+  ) {
+    await copyLink(
+      CONTEXT_MENU_SYMBOL_ITEMS[info.menuItemId].function(info.selectionText),
+      tab
+    )
+  }
+})
