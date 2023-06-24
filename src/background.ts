@@ -1,8 +1,6 @@
+import { contentCopy } from "~utils/helpers"
 import { CONTEXT_MENU_FORMATTER_ITEMS, CONTEXT_MENU_SYMBOL_ITEMS } from "./menu/"
 
-function contentCopy(text) {
-  navigator.clipboard.writeText(text)
-}
 
 async function copyLink(text, tab) {
   chrome.scripting.executeScript({
@@ -23,9 +21,9 @@ const generateContextMenu = (options) => {
     ...options,
     contexts: ["page", "selection"]
   })
-}
+};
 
-;[CONTEXT_MENU_FORMATTER_ITEMS, CONTEXT_MENU_SYMBOL_ITEMS].forEach(
+[CONTEXT_MENU_FORMATTER_ITEMS, CONTEXT_MENU_SYMBOL_ITEMS].forEach(
   (options, id) => {
     generateContextMenuWithArray(options)
     generateContextMenu({
