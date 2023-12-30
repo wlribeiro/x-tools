@@ -17,3 +17,5 @@ export const parentheses = (text: string) => (`(${text})`)
 export const brackets = (text: string) => (`[${text}]`)
 
 export const curlyBrackets = (text: string) => (`{${text}}`)
+
+export const copyWithoutPoint = (text: string) => text.replace(/\./g, "")

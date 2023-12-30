@@ -69,4 +69,10 @@ describe("Text Conversion Functions", () => {
       expect(formatters.curlyBrackets('Hello World')).toBe('{Hello World}');
     });
   });
+
+    describe('copyWithoutPoint', () => {
+        it('removes all points from text', () => {
+        expect(formatters.copyWithoutPoint('Hello.World')).toBe('HelloWorld');
+        });
+    });
 })

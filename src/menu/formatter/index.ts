@@ -1,43 +1,57 @@
+import type { Formatter } from "~types"
 import * as formatters from "~utils/formatters"
 
-export const CONTEXT_MENU_FORMATTER_ITEMS = {
+export const CONTEXT_MENU_FORMATTER_ITEMS: Formatter = {
   lowercase: {
     title: "Copiar e converter para minúsculas",
-    function: formatters.lowercase
+    func: formatters.lowercase
   },
   titlecase: {
     title: "Copiar e converter para titulo",
-    function: formatters.titlecase
+    func: formatters.titlecase
   },
   uppercase: {
     title: "Copiar e converter para maiúsculas",
-    function: formatters.uppercase
+    func: formatters.uppercase
   },
   sentencecase: {
     title: "Copiar e converter para sentença",
-    function: formatters.sentencecase
+    func: formatters.sentencecase
   }
 }
 
-export const CONTEXT_MENU_SYMBOL_ITEMS = {
+export const CONTEXT_MENU_SYMBOL_ITEMS: Formatter = {
   doubleQuotes: {
     title: "Copiar e adicionar aspas duplas",
-    function: formatters.doubleQuotions
+    func: formatters.doubleQuotions
   },
   singleQuotes: {
     title: "Copiar e adicionar aspas simples",
-    function: formatters.singleQuotions
+    func: formatters.singleQuotions
   },
   parentheses: {
     title: "Copiar e adicionar parenteses",
-    function: formatters.parentheses
+    func: formatters.parentheses
   },
   brackets: {
     title: "Copiar e adicionar colchetes",
-    function: formatters.brackets
+    func: formatters.brackets
   },
   curlyBrackets: {
     title: "Copiar e adicionar chaves",
-    function: formatters.curlyBrackets
+    func: formatters.curlyBrackets
   }
 }
+
+export const CONTEXT_MENU_REMOVE_ITEMS: Formatter = {
+  removePoint: {
+    title: "Copiar e remover pontos",
+    func: formatters.copyWithoutPoint
+  }
+}
+
+export const FORMATTERS = [
+    CONTEXT_MENU_FORMATTER_ITEMS,
+    CONTEXT_MENU_SYMBOL_ITEMS,
+    CONTEXT_MENU_REMOVE_ITEMS
+]
